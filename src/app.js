@@ -22,28 +22,44 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
+  
   let forecastElement = document.querySelector("#weather-forecast");
 
-  let days = ["Thu", "Fri", "Sat", "Sun"];
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
    <div class="col-2">
-     <div class="weather-forecast-date">${day}</div>
+     <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
      <img
-       src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-night.png"
+       src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+         forecastDay.condition.icon
+       }.png"
        alt=""
      />
      <div class="weather-forecast-temperature">
-       <span class="weather-forecast-temperature-max"> 18°</span>
-       <span class="weather-forecast-temperature-min"> 12°</span>
+       <span class="weather-forecast-temperature-max"> ${Math.round(
+         forecastDay.temperature.maximum
+       )}°</span>
+       <span class="weather-forecast-temperature-min"> ${Math.round(
+         forecastDay.temperature.minimum
+       )}°</span>
      </div>
    </div>
  `;
+    }
   });
 
   forecastHTML = forecastHTML + `<div>`;
@@ -51,7 +67,7 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
- console.log(coordinates);
+  console.log(coordinates);
   let apiKey = "0be4d0ade7d8f64fb3ca53dd30f6fotd";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=metric`;
   console.log(apiUrl);
