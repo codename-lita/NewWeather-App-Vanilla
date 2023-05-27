@@ -64,7 +64,7 @@ p {
   font-weight: 400;
   line-height: 1;
 }
-.weather-temperature img {
+.weather-condition img {
   width: 150px;
   height: 150px;
   margin-top: -40px;
@@ -78,12 +78,12 @@ p {
   font-size: 16px;
   top: -65px;
 }
-.weather-temperature .active {
+.weather-condition .active {
   color: #757575;
   cursor: default;
   text-decoration: none;
 }
-.weather-temperature .active:hover {
+.weather-condition .active:hover {
   text-decoration: underline;
   color: #757575;
 }
