@@ -103,13 +103,13 @@ p {
   border-radius: 25px;
   padding: 12px;
 }
-.current-location-btn {
+#current-location-btn {
   background-color: rgb(235, 164, 141);
   border: 1px solid rgb(235, 164, 141);
   border-radius: 25px;
   padding: 12px;
 }
-.current-location-btn:hover {
+#current-location-btn:hover {
   background-color: darksalmon;
   border: 1px solid darksalmon;
 }
