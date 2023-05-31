@@ -128,22 +128,24 @@ let searchButton = document.querySelector(".search-btn");
 searchButton.addEventListener("click", handleSubmit);
 
 // function for current location
-function currentPosition(position) {
-  let apiPositionUrl = `https://api.shecodes.io/weather/v1/current?lat=${lat}&lon=${log}&key=${apiKey}&units=${units}`;
-  let lat = position.coords.latitude;
-  let log = position.coords.longitude;
+function aCurrentPosition(position) {
+  let longitude = position.coords.longitude;
+  let latitude = position.coords.latitude;
   let apiKey = "0be4d0ade7d8f64fb3ca53dd30f6fotd";
+  let apiPositionUrl = `https://api.shecodes.io/weather/v1/current?lat=${latitude}&lon=${longitude}&key=${apiKey}&units=${units}`;
+  console.log(apiPositionUrl);
   axios.get(apiPositionUrl).then(displayTemperature);
 }
 
 //function for current location button
 function searchCurrentLocation(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(currentPosition);
+  navigator.geolocation.getCurrentPosition(aCurrentPosition);
 }
-document
-.querySelector("#current-location-btn").addEventListener("click", searchCurrentLocation);
 
+document
+  .querySelector("#current-location-btn")
+  .addEventListener("click", searchCurrentLocation);
 
 //functions to covert and display celcius and fahrenheit temp
 function displayFarenheitTemperature(event) {
@@ -165,7 +167,6 @@ function displaycelciusTemperature(event) {
 let temperature = null;
 let units = "metric";
 let apiKey = "0be4d0ade7d8f64fb3ca53dd30f6fotd";
-let city = null;
 
 //function for temp unit links click
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
@@ -175,4 +176,4 @@ let celciusLink = document.querySelector("#celcius-link");
 celciusLink.addEventListener("click", displaycelciusTemperature);
 
 //default city
-search("New York");
+search("Austin");
